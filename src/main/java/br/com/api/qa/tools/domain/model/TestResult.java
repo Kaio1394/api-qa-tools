@@ -2,7 +2,6 @@ package br.com.api.qa.tools.domain.model;
 
 import java.util.UUID;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UuidGenerator;
 
 import br.com.api.qa.tools.domain.enums.Status;
@@ -19,11 +18,13 @@ import lombok.Data;
 @Data
 public class TestResult {
     @Id
-    @Column(columnDefinition = "")
-    @UuidGenerator
+    @Column(name = "id")
     private UUID id;
 
+    @Column(name = "ticket")
+    private String ticket;
+
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "status")
     private Status status;
 }
