@@ -1,5 +1,6 @@
 package br.com.api.qa.tools.domain.model;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
@@ -24,7 +25,13 @@ public class TestResult {
     @Column(name = "ticket")
     private String ticket;
 
+    @Column(name = "tags")
+    private String tags;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "status")
     private Status status;
+
+    @Column(name = "execution_date")
+    private LocalDateTime executionDate;
 }
