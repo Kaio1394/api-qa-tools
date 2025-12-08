@@ -28,8 +28,11 @@ public class TestResultServiceImpl implements TestResultService {
 
     @Override
     public CompletableFuture<TestResultRequestDto> add(TestResultRequestDto createRequest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Add'");
+        return CompletableFuture.supplyAsync(() -> {
+            TestResult entity = mapper.map(createRequest, TestResult.class);
+            repository.save(entity);
+            return createRequest;
+        });
     }
 
     @Override
