@@ -56,4 +56,26 @@ public class TestResultServiceImpl implements TestResultService {
             return dto;
         });
     }
+
+    @Override
+    public CompletableFuture<List<TestResultResponseDto>> findByScenarioName(String scenarioName) {
+        return CompletableFuture.supplyAsync(() -> {
+            List<TestResultResponseDto> listDto = repository.findByStatus(scenarioName)
+                    .stream()
+                    .map(e -> mapper.map(e, TestResultResponseDto.class))
+                    .toList();
+            return listDto;
+        });
+    }
+
+    @Override
+    public CompletableFuture<List<TestResultResponseDto>> findByStatus(String status) {
+        return CompletableFuture.supplyAsync(() -> {
+            List<TestResultResponseDto> listDto = repository.findByStatus(status)
+                    .stream()
+                    .map(e -> mapper.map(e, TestResultResponseDto.class))
+                    .toList();
+            return listDto;
+        });
+    }
 }
