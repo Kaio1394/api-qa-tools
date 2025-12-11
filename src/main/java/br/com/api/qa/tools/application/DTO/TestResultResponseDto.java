@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class TestResultResponseDto {
     private UUID id;
+    private String scenarioName;
     private String ticket;
     private String tags;
     private Status status;

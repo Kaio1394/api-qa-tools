@@ -9,5 +9,5 @@ public interface BaseService<CreateDto, ResponseDto> {
 
     CompletableFuture<ResponseDto> getResultById(UUID id);
 
-    CompletableFuture<CreateDto> add(CreateDto createRequest);
+    CompletableFuture<ResponseDto> add(CreateDto createRequest);
 }

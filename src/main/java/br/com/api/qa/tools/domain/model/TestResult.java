@@ -13,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -25,8 +26,8 @@ public class TestResult {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "ticket")
-    private String ticket;
+    @Column(name = "scenario_name")
+    private String scenarioName;
 
     @Column(name = "tags")
     private String tags;
@@ -35,6 +36,14 @@ public class TestResult {
     @Column(nullable = false, name = "status")
     private Status status;
 
-    @Column(name = "execution_date")
+    @Column(name = "message_result")
+    private String messageResult;
+
+    @Column(name = "execution_date", insertable = false, updatable = false)
     private LocalDateTime executionDate;
+
+    @PrePersist
+    public void prePersist() {
+        this.executionDate = LocalDateTime.now();
+    }
 }

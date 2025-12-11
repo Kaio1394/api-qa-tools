@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import br.com.api.qa.tools.application.DTO.TestResultRequestDto;
@@ -20,21 +21,20 @@ public class TestResultServiceImpl implements TestResultService {
     @Autowired
     private ModelMapper mapper;
 
-    private final TestResultRepository repository;
-
-    public TestResultServiceImpl(TestResultRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private TestResultRepository repository;
 
     @Override
-    public CompletableFuture<TestResultRequestDto> add(TestResultRequestDto createRequest) {
+    public CompletableFuture<TestResultResponseDto> add(TestResultRequestDto createRequest) {
         return CompletableFuture.supplyAsync(() -> {
             TestResult entity = mapper.map(createRequest, TestResult.class);
-            repository.save(entity);
-            return createRequest;
+            entity = repository.save(entity);
+            TestResultResponseDto dto = mapper.map(entity, TestResultResponseDto.class);
+            return dto;
         });
     }
 
+    @Async
     @Override
     public CompletableFuture<List<TestResultResponseDto>> getAllResults() {
         return CompletableFuture.supplyAsync(() -> {
@@ -46,9 +46,14 @@ public class TestResultServiceImpl implements TestResultService {
         });
     }
 
+    @Async
     @Override
     public CompletableFuture<TestResultResponseDto> getResultById(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getResultById'");
+        return CompletableFuture.supplyAsync(() -> {
+            TestResult entity = repository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Resultado não encontrado"));
+            TestResultResponseDto dto = mapper.map(entity, TestResultResponseDto.class);
+            return dto;
+        });
     }
 }

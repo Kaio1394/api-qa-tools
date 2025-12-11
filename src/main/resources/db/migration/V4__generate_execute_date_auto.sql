@@ -1,0 +1,2 @@
+ALTER TABLE test_results
+ALTER COLUMN execution_date SET DEFAULT CURRENT_TIMESTAMP;
