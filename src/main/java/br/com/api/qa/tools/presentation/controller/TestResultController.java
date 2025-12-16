@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.api.qa.tools.application.DTO.TestResultRequestDto;
 import br.com.api.qa.tools.application.DTO.TestResultResponseDto;
 import br.com.api.qa.tools.application.interfaces.TestResultService;
-import br.com.api.qa.tools.application.service.TestResultServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;

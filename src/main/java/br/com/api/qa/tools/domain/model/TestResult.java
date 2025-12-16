@@ -3,8 +3,6 @@ package br.com.api.qa.tools.domain.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import org.hibernate.annotations.UuidGenerator;
-
 import br.com.api.qa.tools.domain.enums.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,8 +27,8 @@ public class TestResult {
     @Column(name = "scenario_name")
     private String scenarioName;
 
-    @Column(name = "tags")
-    private String tags;
+    @Column(name = "tag")
+    private String tag;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "status")
